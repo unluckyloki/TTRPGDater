@@ -1,0 +1,294 @@
+[gd_scene load_steps=6 format=3 uid="uid://cia2e6yyiqs6o"]
+
+[ext_resource type="Script" path="res://scripts/Inspector.cs" id="1_75orl"]
+[ext_resource type="Theme" uid="uid://1d8sukmw33sk" path="res://themes/mainTheme.tres" id="1_poqeb"]
+[ext_resource type="Script" path="res://scripts/Operations.cs" id="2_00uf7"]
+[ext_resource type="Script" path="res://scripts/ProfileSettings.cs" id="2_kja3w"]
+[ext_resource type="Script" path="res://scripts/WebhookSettings.cs" id="4_q6kph"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_poqeb")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.256456, 0.255246, 0.292433, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Inspector" type="MarginContainer" parent="VBoxContainer" node_paths=PackedStringArray("_deselectAll", "_newTimeline", "_timelineList")]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+script = ExtResource("1_75orl")
+_deselectAll = NodePath("MarginContainer/VBoxContainer/HBoxContainer/deselectAll")
+_newTimeline = NodePath("MarginContainer/VBoxContainer/HBoxContainer/newTimeline")
+_timelineList = NodePath("MarginContainer/VBoxContainer/ScrollContainer/TimelineList")
+
+[node name="Panel" type="Panel" parent="VBoxContainer/Inspector"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Inspector"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Inspector/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Inspector/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="TimelineList" type="VBoxContainer" parent="VBoxContainer/Inspector/MarginContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Inspector/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="deselectAll" type="Button" parent="VBoxContainer/Inspector/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Deselect all"
+
+[node name="newTimeline" type="Button" parent="VBoxContainer/Inspector/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Create new timeline"
+
+[node name="Tools" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Operations" type="MarginContainer" parent="VBoxContainer/Tools" node_paths=PackedStringArray("_timelineList", "_days", "_months", "_years", "_hours", "_minutes", "_add", "_substract")]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+script = ExtResource("2_00uf7")
+_timelineList = NodePath("../../Inspector/MarginContainer/VBoxContainer/ScrollContainer/TimelineList")
+_days = NodePath("MarginContainer/VBoxContainer/Date/day")
+_months = NodePath("MarginContainer/VBoxContainer/Date/month")
+_years = NodePath("MarginContainer/VBoxContainer/Date/year")
+_hours = NodePath("MarginContainer/VBoxContainer/Time/hours")
+_minutes = NodePath("MarginContainer/VBoxContainer/Time/minutes")
+_add = NodePath("MarginContainer/VBoxContainer/Buttons/add")
+_substract = NodePath("MarginContainer/VBoxContainer/Buttons/substract")
+
+[node name="Panel" type="Panel" parent="VBoxContainer/Tools/Operations"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Tools/Operations"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Tools/Operations/MarginContainer"]
+layout_mode = 2
+
+[node name="dateText" type="Label" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Date"
+horizontal_alignment = 1
+
+[node name="Date" type="HBoxContainer" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="day" type="LineEdit" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer/Date"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "DD"
+virtual_keyboard_type = 2
+
+[node name="sep" type="Label" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer/Date"]
+layout_mode = 2
+text = "."
+
+[node name="month" type="LineEdit" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer/Date"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "MM"
+virtual_keyboard_type = 2
+
+[node name="sep2" type="Label" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer/Date"]
+layout_mode = 2
+text = ".
+"
+
+[node name="year" type="LineEdit" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer/Date"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "YYYY"
+virtual_keyboard_type = 2
+
+[node name="timeText" type="Label" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Time"
+horizontal_alignment = 1
+
+[node name="Time" type="HBoxContainer" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="hours" type="LineEdit" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer/Time"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "hh"
+virtual_keyboard_type = 2
+
+[node name="sep" type="Label" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer/Time"]
+layout_mode = 2
+text = ":"
+
+[node name="minutes" type="LineEdit" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer/Time"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "mm"
+virtual_keyboard_type = 2
+
+[node name="buttonsText" type="Label" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Operations"
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="add" type="Button" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add"
+
+[node name="substract" type="Button" parent="VBoxContainer/Tools/Operations/MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Subsctract"
+
+[node name="Settings" type="MarginContainer" parent="VBoxContainer/Tools"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Panel" type="Panel" parent="VBoxContainer/Tools/Settings"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Tools/Settings"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Tools/Settings/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ProfileText" type="Label" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Profile"
+horizontal_alignment = 1
+
+[node name="Profile" type="HBoxContainer" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("_profile", "_renameLE", "_rename", "_refresh", "_delete")]
+layout_mode = 2
+script = ExtResource("2_kja3w")
+_profile = NodePath("profile")
+_renameLE = NodePath("renameLE")
+_rename = NodePath("rename")
+_refresh = NodePath("refresh")
+_delete = NodePath("delete")
+
+[node name="delete" type="Button" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer/Profile"]
+layout_mode = 2
+text = "D"
+
+[node name="profile" type="OptionButton" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer/Profile"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="renameLE" type="LineEdit" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer/Profile"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="rename" type="Button" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer/Profile"]
+layout_mode = 2
+text = "Rename"
+
+[node name="refresh" type="Button" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer/Profile"]
+layout_mode = 2
+text = "Refresh"
+
+[node name="Control" type="Control" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SettingsText" type="Label" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="Webhook" type="HBoxContainer" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("_webhookLE", "_saveWebhook", "_messageIDLE", "_saveMessageID")]
+layout_mode = 2
+script = ExtResource("4_q6kph")
+_webhookLE = NodePath("webhookLink")
+_saveWebhook = NodePath("saveLink")
+_messageIDLE = NodePath("../Msg ID/messageID")
+_saveMessageID = NodePath("../Msg ID/saveID")
+
+[node name="webhookLink" type="LineEdit" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer/Webhook"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Discord Webhook Link"
+
+[node name="saveLink" type="Button" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer/Webhook"]
+visible = false
+layout_mode = 2
+text = "Save"
+
+[node name="Msg ID" type="HBoxContainer" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="messageID" type="LineEdit" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer/Msg ID"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Discord Message ID"
+
+[node name="saveID" type="Button" parent="VBoxContainer/Tools/Settings/MarginContainer/ScrollContainer/VBoxContainer/Msg ID"]
+visible = false
+layout_mode = 2
+text = "Save"
